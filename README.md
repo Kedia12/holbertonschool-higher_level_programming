@@ -1,2 +1,0 @@
-# holbertonschool-higher_level_programming
-learning if_else_loops
