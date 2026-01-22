@@ -1,15 +1,18 @@
+#!/usr/bin/python3
+"""3-say_my_name module.
+
+This module provides say_my_name(first_name, last_name="").
+It prints: My name is <first_name> <last_name>
+No modules are imported.
+"""
+
+
 def say_my_name(first_name, last_name=""):
-    """Returns a string with the given first name and last name.
+    """Print 'My name is <first_name> <last_name>'."""
+    if type(first_name) is not str:
+        raise TypeError("first_name must be a string")
+    if type(last_name) is not str:
+        raise TypeError("last_name must be a string")
 
-    If the last name is not provided, it returns only the first name.
+    print("My name is {} {}".format(first_name, last_name))
 
-    Args:
-        first_name (str): The first name of the person.
-        last_name (str, optional): The last name of the person. Defaults to "".
-
-    Returns:
-        str: A string containing the full name or just the first name.
-    """
-    if last_name:
-        return f"{first_name} {last_name}"
-    return first_name
