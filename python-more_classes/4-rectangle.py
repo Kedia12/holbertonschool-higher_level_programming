@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Defines a Rectangle class with representation."""
+"""Defines a Rectangle class with string and repr representations."""
 
 
 class Rectangle:
@@ -59,5 +59,5 @@ class Rectangle:
         return "\n".join(lines)
 
     def __repr__(self):
-        """Return a string representation to recreate the rectangle with eval()."""
+        """Return a string representation to recreate a rectangle."""
         return f"Rectangle({self.__width}, {self.__height})"
