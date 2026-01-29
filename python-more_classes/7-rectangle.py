@@ -1,9 +1,10 @@
 #!/usr/bin/python3
-"""Defines a Rectangle class with string and repr representations."""
+"""Defines a Rectangle class with instance counting and custom print symbol."""
 
 
 class Rectangle:
     """Represents a rectangle."""
+
     number_of_instances = 0
     print_symbol = "#"
 
@@ -52,20 +53,21 @@ class Rectangle:
         return 2 * (self.__width + self.__height)
 
     def __str__(self):
-        """Return the rectangle string representation using #."""
+        """Return the rectangle string representation using print_symbol."""
         if self.__width == 0 or self.__height == 0:
             return ""
 
+        symbol = str(self.print_symbol)
         lines = []
         for _ in range(self.__height):
-            lines.append("#" * self.__width)
+            lines.append(symbol * self.__width)
         return "\n".join(lines)
 
     def __repr__(self):
-        """Return a string representation to recreate a rectangle."""
+        """Return a string representation to recreate a Rectangle."""
         return f"Rectangle({self.__width}, {self.__height})"
 
     def __del__(self):
-        """print a message when a Rectangle instance is deleted."""
+        """Print a message when a Rectangle instance is deleted."""
         Rectangle.number_of_instances -= 1
         print("Bye rectangle...")
