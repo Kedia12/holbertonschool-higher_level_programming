@@ -1,10 +1,17 @@
 #!/usr/bin/python3
-"""Defines MyList, a list subclass with a sorted print method."""
+
+"""
+Defines a custom class which is a subclass of the built-in `list` class.
+Method `print_sorted` to print the elements of the list in sorted order.
+"""
 
 
 class MyList(list):
-    """A subclass that can print its elements sorted in ascending order."""
-
+    """
+    Class which is a subclass of the built-in list class.
+    """
     def print_sorted(self):
-        """Print the list in ascending order without modifying the original."""
+        """
+        Method to print the elements of the list in sorted order.
+        """
         print(sorted(self))
