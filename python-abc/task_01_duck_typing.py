@@ -42,3 +42,4 @@ def shape_info(shape):
     # Duck typing: no isinstance checks, just call what we expect to exist
     print(f"Area: {shape.area()}")
     print(f"Perimeter: {shape.perimeter()}")
+
