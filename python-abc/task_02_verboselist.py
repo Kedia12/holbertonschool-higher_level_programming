@@ -1,21 +1,59 @@
 #!/usr/bin/python3
+"""
+Module defining a VerboseList class that extends the built-in list.
+This class overrides append, remove, pop, and extend methods to print
+messages whenever these methods are called.
+"""
 
 
-class Verboselist(list):
-    def append(self, item):
-        super().append(item)
-        print(f"Added [{item}] to the list.")
+class VerboseList(list):
+    """
+    A list that prints messages on modifications.
+    Inherits from the built-in list and overrides append, remove, pop,
+    and extend methods to provide verbose output.
+    """
+    def append(self, object):
+        """
+        Append an object to the list and print a message.
+        args:
+            object: The object to be appended to the list.
+        returns:
+            None
+        """
+        print(f"Added {object} to the list.")
+        return super().append(object)
 
-    def extend(self, iterable):
-        items = list(iterable)
-        super().extend(items)
-        print(f"Extended the list with [{len(items)}] items.")
-
-    def remove(self, item):
-        print(f"Removed [{item}] from the list.")
-        super().remove(item)
+    def remove(self, object):
+        """
+        Remove an object from the list and print a message.
+        args:
+            object: The object to be removed from the list.
+        returns:
+            None
+        """
+        print(f"Removed {object} from the list.")
+        return super().remove(object)
 
     def pop(self, index=-1):
-        item = self[index]
-        print(f"Popped [{item}] from the list.")
-        return super().pop(index)
+        """
+        Pop an object from the list and print a message.
+        args:
+            index: The index of the object to pop. Defaults to -1
+            (the last item).
+        returns:
+            The popped object.
+        """
+        popped_value = super().pop(index)
+        print(f"Popped {popped_value} from the list.")
+        return popped_value
+
+    def extend(self, iterable):
+        """
+        Extend the list with an iterable and print a message.
+        args:
+            iterable: An iterable to extend the list with.
+        returns:
+            None
+        """
+        print(f"Extended the list with {iterable}.")
+        return super().extend(iterable)
