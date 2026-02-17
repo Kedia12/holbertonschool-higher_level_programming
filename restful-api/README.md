@@ -333,6 +333,7 @@ curl -i http://127.0.0.1:5000/users/doesnotexist
 HTTP/1.1 404 NOT FOUND
 {"error":"User not found"}
 
+
 Task 5: API Security and Authentication Techniques
 
 This task focuses on securing a Flask API using Basic Authentication and JWT (JSON Web Tokens), and introducing role-based access control (RBAC).
@@ -340,10 +341,14 @@ This task focuses on securing a Flask API using Basic Authentication and JWT (JS
 Concepts covered
 
 * Authentication vs Authorization
+
     * Authentication: confirms who you are (e.g., username/password, token).
     * Authorization: confirms what you’re allowed to do (e.g., admin-only access).
+
 * Basic Auth: uses an Authorization: Basic ... header (username/password).
+
 * JWT Auth: uses a signed token (Authorization: Bearer <token>) to access protected routes.
+
 * RBAC: restricts routes based on the user role stored in the token (e.g., admin vs user).
 
 Dependencies
@@ -416,7 +421,3 @@ Notes on error handling (important for checker)
 All authentication failures (missing/invalid/expired/malformed JWT) should return:
 
 * HTTP 401 with a consistent JSON error message.
-
-Files
-
-* task_05_basic_security.py — implementation of Basic Auth + JWT + RBAC.
