@@ -116,3 +116,69 @@ Scenario: requesting a page/endpoint that isn’t on the server
 Scenario: backend crashes or throws an unhandled exception
 
 (Also: status codes are grouped by first digit: 2xx success, 3xx redirect, 4xx client error, 5xx server error.)
+
+CURL
+
+1. Consume data from an API using command line tools (curl)
+
+Installing / checking curl
+
+On macOS, curl is usually already installed. I verified it with:
+
+curl --version
+Expected output: shows the curl version and supported protocols (http/https, etc.).
+
+Fetching data from an API (GET)
+
+I used JSONPlaceholder to retrieve posts:
+curl https://jsonplaceholder.typicode.com/posts
+
+Result: returns a JSON array of posts. Each post contains fields like userId, id, title, and body.
+
+Tip (optional, prettier output if you have jq installed):
+
+curl -s https://jsonplaceholder.typicode.com/posts | jq .
+
+Fetching only headers
+
+To inspect only the response headers:
+curl -I https://jsonplaceholder.typicode.com/posts
+
+What you should see (example):
+
+* A status line like HTTP/2 200 (or HTTP/1.1 200 OK)
+* Headers such as content-type: application/json; charset=utf-8
+
+This is useful for checking status codes, caching, content type, etc.
+
+Making a POST request (send data)
+
+Form-encoded (matches the project prompt)
+curl -X POST -d "title=foo&body=bar&userId=1" https://jsonplaceholder.typicode.com/posts
+
+Expected result: JSONPlaceholder returns a simulated created object, typically including id: 101.
+
+JSON body (common REST style)
+
+curl -X POST \
+  -H "Content-Type: application/json; charset=UTF-8" \
+  -d '{"title":"foo","body":"bar","userId":1}' \
+  https://jsonplaceholder.typicode.com/posts
+
+Expected response (example):
+
+{
+  "title": "foo",
+  "body": "bar",
+  "userId": 1,
+  "id": 101
+}
+
+JSONPlaceholder simulates creation (it doesn’t persist changes permanently).
+
+Key curl options used (what they mean)
+
+-I → fetch headers only
+-X POST → choose HTTP method (here: POST)
+-d → send data in the request body (commonly for POST/PUT/PATCH)
+-H → add a request header (e.g., Content-Type)
