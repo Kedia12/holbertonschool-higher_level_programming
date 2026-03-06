@@ -4,28 +4,26 @@ Module that list all states from a database.
 """
 
 import MySQLdb
-import sys
+from sys import argv
 
 if __name__ == "__main__":
+    """
+    Connects to the MySQL database and retrieves all states.
+    """
+    # Connect to the database
+    db = MySQLdb.connect(host="localhost", port=3306,
+                         user=argv[1], passwd=argv[2], db=argv[3])
+    cursor = db.cursor()
 
-    if len(sys.argv) != 4:
-        print("Usage: {} <username> <password> <database>".format(sys.argv[0]))
-        sys.exit(1)
+    # Execute the query to retrieve all states
+    cursor.execute("SELECT * FROM states ORDER BY id ASC")
+    states = cursor.fetchall()
 
-    database = MySQLdb.connect(
-        host="localhost",
-        port=3306,
-        user=sys.argv[1],
-        passwd=sys.argv[2],
-        database=sys.argv[3]
-    )
+    # Print the results
+    for state in states:
+        print(state)
 
-    cursor = database.cursor()
-
-    cursor.execute("SELECT * FROM states ORDER BY states.id")
-
-    for row in cursor.fetchall():
-        print(row)
-
+    # Close the database connection
     cursor.close()
-    database.close()
+    db.close()
+    
