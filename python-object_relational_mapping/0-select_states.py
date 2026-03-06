@@ -1,24 +1,23 @@
 #!/usr/bin/python3
-"""
-Module that list all states from a database.
-"""
+"""Lists all states from the database."""
 
 import MySQLdb
-from sys import argv
+import sys
+
 
 if __name__ == "__main__":
-    """
-    Connects to the MySQL database and retrieves all states.
-    """
-    db = MySQLdb.connect(host="localhost", port=3306,
-                         user=argv[1], passwd=argv[2], db=argv[3])
-    cursor = db.cursor()
+    db = MySQLdb.connect(
+        host="localhost",
+        port=3306,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
+    )
+    cur = db.cursor()
+    cur.execute("SELECT * FROM states ORDER BY id ASC")
 
-    cursor.execute("SELECT * FROM states ORDER BY id ASC")
-    states = cursor.fetchall()
+    for row in cur.fetchall():
+        print(row)
 
-    for state in states:
-        print(state)
-
-    cursor.close()
+    cur.close()
     db.close()
