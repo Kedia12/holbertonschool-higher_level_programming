@@ -1,41 +1,31 @@
 #!/usr/bin/python3
-"""List all states from the database."""
+"""
+Module that display all values in the states table
+of a database where name matches the argument.
+"""
 
 import MySQLdb
 import sys
 
+if __name__ == "__main__":
 
-def main():
-    """Run the SQL query and print results."""
-    username = sys.argv[1]
-    password = sys.argv[2]
-    database = sys.argv[3]
-    state_searched = sys.argv[4]
-
-    db = MySQLdb.connect(
+    database = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=username,
-        passwd=password,
-        db=database,
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        database=sys.argv[3]
     )
 
-    cursor = db.cursor()
+    cursor = database.cursor()
 
-    cursor.execute("""
-        SELECT * FROM states
-        WHERE name = '{}'
-        ORDER BY id ASC;
-        """.format(state_searched,))
+    cursor.execute("""SELECT * FROM states
+                      WHERE name LIKE BINARY '{}'
+                      ORDER BY states.id
+                   """.format(sys.argv[4]))
 
-    states = cursor.fetchall()
-
-    for state in states:
-        print(state)
+    for row in cursor.fetchall():
+        print(row)
 
     cursor.close()
-    db.close()
-
-
-if __name__ == "__main__":
-    main()
+    database.close()
