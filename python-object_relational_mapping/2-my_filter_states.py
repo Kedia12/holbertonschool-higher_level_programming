@@ -1,25 +1,29 @@
 #!/usr/bin/python3
-"""Displays all values in the states table matching the given name."""
+"""Display states matching a given name."""
 
 import MySQLdb
-from sys import argv
+import sys
 
 
 if __name__ == "__main__":
-    db = MySQLdb.connect(
+    connection = MySQLdb.connect(
         host="localhost",
         port=3306,
-        user=argv[1],
-        passwd=argv[2],
-        db=argv[3]
+        user=sys.argv[1],
+        passwd=sys.argv[2],
+        db=sys.argv[3]
     )
 
-    cursor = db.cursor()
-    query = "SELECT * FROM states WHERE name = '{}' ORDER BY id ASC".format(argv[4])
+    cursor = connection.cursor()
+
+    state = sys.argv[4]
+    query = ("SELECT * FROM states WHERE name = '{}' "
+             "ORDER BY id ASC").format(state)
+
     cursor.execute(query)
 
-    for state in cursor.fetchall():
-        print(state)
+    for row in cursor.fetchall():
+        print(row)
 
     cursor.close()
-    db.close()
+    connection.close()
