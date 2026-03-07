@@ -1,30 +1,32 @@
 #!/usr/bin/python3
-"""Lists all cities from the specified MySQL database."""
+"""
+Module that list all cities from a database.
+"""
 
 import MySQLdb
 import sys
 
-
 if __name__ == "__main__":
-    db = MySQLdb.connect(
+
+    database = MySQLdb.connect(
         host="localhost",
         port=3306,
         user=sys.argv[1],
         passwd=sys.argv[2],
-        db=sys.argv[3]
+        database=sys.argv[3]
     )
 
-    cur = db.cursor()
-    cur.execute(
-        "SELECT cities.id, cities.name, states.name "
-        "FROM cities "
-        "JOIN states ON cities.state_id = states.id "
-        "ORDER BY cities.id ASC"
-    )
+    cursor = database.cursor()
 
-    for city in cur.fetchall():
-        print(city)
+    cursor.execute("""
+                   SELECT cities.id, cities.name, states.name
+                   FROM cities JOIN states
+                   ON cities.state_id = states.id
+                   ORDER BY cities.id
+                   """)
 
-    cur.close()
-    db.close()
+    for row in cursor.fetchall():
+        print(row)
 
+    cursor.close()
+    database.close()
