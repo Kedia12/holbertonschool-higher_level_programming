@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Displays all values in the states table matching the given name safely."""
+"""Display states matching a given name safely."""
 
 import MySQLdb
 import sys
@@ -14,14 +14,14 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
 
-    cursor = db.cursor()
-    cursor.execute(
+    cur = db.cursor()
+    cur.execute(
         "SELECT * FROM states WHERE name = %s ORDER BY id ASC",
         (sys.argv[4],)
     )
 
-    for state in cursor.fetchall():
-        print(state)
+    for row in cur.fetchall():
+        print(row)
 
-    cursor.close()
+    cur.close()
     db.close()
