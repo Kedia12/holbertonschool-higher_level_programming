@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Lists all cities of a given state from the specified MySQL database."""
+"""Print all states starting with uppercase N."""
 
 import MySQLdb
 import sys
@@ -14,19 +14,14 @@ if __name__ == "__main__":
         db=sys.argv[3]
     )
 
-    cursor = db.cursor()
-    cursor.execute(
-        "SELECT cities.name "
-        "FROM cities "
-        "JOIN states ON cities.state_id = states.id "
-        "WHERE states.name = %s "
-        "ORDER BY cities.id ASC",
-        (sys.argv[4],)
+    cur = db.cursor()
+    cur.execute(
+        "SELECT * FROM states WHERE name LIKE BINARY 'N%' ORDER BY id ASC"
     )
 
-    rows = cursor.fetchall()
-    print(", ".join(city[0] for city in rows))
+    for row in cur.fetchall():
+        print(row)
 
-    cursor.close()
+    cur.close()
     db.close()
     
